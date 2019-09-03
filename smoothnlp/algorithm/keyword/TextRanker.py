@@ -17,17 +17,17 @@ from collections import defaultdict
 
 
 class VertexInitializer():
-    """ÒÔHanlp¸ø³öµÄ·Ö´Ê½á¹ûÎª±ê×¼ĞÎÌ¬£¬¼´"word/wp"²¢ÒÔlistµÄĞÎÊ½Õ¹Ê¾£¬
+    """ä»¥Hanlpç»™å‡ºçš„åˆ†è¯ç»“æœä¸ºæ ‡å‡†å½¢æ€ï¼Œå³"word/wp"å¹¶ä»¥listçš„å½¢å¼å±•ç¤ºï¼Œ
 
-    ¼´obj = ['word1/wp1','word2/wp2'......]
+    å³obj = ['word1/wp1','word2/wp2'......]
 
-    ÀàÄÚÖĞ½éĞÎÌ¬Îª´ÊÓë´ÊĞÔµÄÔª×é×é³ÉµÄlist£¬
+    ç±»å†…ä¸­ä»‹å½¢æ€ä¸ºè¯ä¸è¯æ€§çš„å…ƒç»„ç»„æˆçš„listï¼Œ
 
-    ¼´self.object = [(word1,wp1),(word2,wp2)......]
+    å³self.object = [(word1,wp1),(word2,wp2)......]
     
-    Êä³öµÄ½á¹ûÎªÒ»¸öÒÔÒÔÉÏÔª×éÎªkeyµÄ×Öµä£¬ÖµÎªÈ¨ÖØ,
+    è¾“å‡ºçš„ç»“æœä¸ºä¸€ä¸ªä»¥ä»¥ä¸Šå…ƒç»„ä¸ºkeyçš„å­—å…¸ï¼Œå€¼ä¸ºæƒé‡,
 
-    ¼´self.score = {word1:weight1,word2:weight2......}
+    å³self.score = {word1:weight1,word2:weight2......}
 
     """
     
@@ -45,7 +45,7 @@ class VertexInitializer():
 
         
 class RandomScoreInitializer(VertexInitializer):
-    """»ùÓÚrandomº¯Êı¶Ô×ÖÈ¨ÖØ½øĞĞ³õÊ¼»¯"""
+    """åŸºäºrandomå‡½æ•°å¯¹å­—æƒé‡è¿›è¡Œåˆå§‹åŒ–"""
     
 
     def __init__(self, obj):
@@ -53,7 +53,7 @@ class RandomScoreInitializer(VertexInitializer):
         super(RandomScoreInitializer, self).__init__(obj)
 
     def unit(self):
-        """³õÊ¼»¯È¨ÖØÔÚ0-1Ö®¼ä"""
+        """åˆå§‹åŒ–æƒé‡åœ¨0-1ä¹‹é—´"""
 
         for word in self.object:
             self.score[word] = rd.random()
@@ -61,7 +61,7 @@ class RandomScoreInitializer(VertexInitializer):
         return self.score
 
     def radint(self, start, end):
-        """³õÊ¼»¯È¨ÖØÎª¸ø¶¨µÄÕûÊıÖ®¼äÈ¡Ëæ»úÕûÖµ"""
+        """åˆå§‹åŒ–æƒé‡ä¸ºç»™å®šçš„æ•´æ•°ä¹‹é—´å–éšæœºæ•´å€¼"""
 
         for word in self.object:
             self.score[word] = rd.randint(start, end)
@@ -69,7 +69,7 @@ class RandomScoreInitializer(VertexInitializer):
         return self.socre
 
     def uniform(self, start, end):
-        """³õÊ¼»¯È¨ÖØÎª¸ø¶¨µÄÊıÖ®¼äÈ¡Ëæ»ú¸¡µãÖµ"""
+        """åˆå§‹åŒ–æƒé‡ä¸ºç»™å®šçš„æ•°ä¹‹é—´å–éšæœºæµ®ç‚¹å€¼"""
 
         for word in self.object:
             self.score[word] = rd.uniform(start, end)
@@ -82,7 +82,7 @@ class RandomScoreInitializer(VertexInitializer):
 
 
 class AverageScoreInitializer(VertexInitializer):
-    """Æ½¾ùÊı³õÊ¼»¯"""
+    """å¹³å‡æ•°åˆå§‹åŒ–"""
 
 
     def __init__(self, obj):
@@ -101,7 +101,10 @@ class AverageScoreInitializer(VertexInitializer):
 
 
 class CustomeInitializer(VertexInitializer):
-    """Ê¹ÓÃÒÑÓĞµÄ×Öµä½øĞĞ¸³È¨£¬×ÖµäµÄ¸ñÊ½Îª{tuple1:weight1,tuple2:weight2......}"""
+    """ä½¿ç”¨å·²æœ‰çš„å­—å…¸è¿›è¡Œèµ‹æƒï¼Œè¾“å…¥å­—å…¸çš„æ ¼å¼åº”ä¸º
+    dict_in = {tuple1:weight1,tuple2:weight2......}
+    
+    """
 
 
     def __init__(self, obj, reference):
@@ -132,27 +135,27 @@ class CustomeInitializer(VertexInitializer):
 
 
 class GraphConstructor():
-    """½ÚµãÎª´ÊÓï£¬±ßÔµÎªÁ½¸ö´ÊÓï°´ÕÕÄ³ÖÖÒªÇó
+    """èŠ‚ç‚¹ä¸ºè¯è¯­ï¼Œè¾¹ç¼˜ä¸ºä¸¤ä¸ªè¯è¯­æŒ‰ç…§æŸç§è¦æ±‚
 
-    £¨Ê¹ÓÃÕß×Ô¶¨Òå»òÊ¹ÓÃµ±Ç°°æ±¾³õÊ¼»¯µÄº¯Êı£©Ç°ºó³öÏÖµÄ´ÎÊı
+    ï¼ˆä½¿ç”¨è€…è‡ªå®šä¹‰æˆ–ä½¿ç”¨å½“å‰ç‰ˆæœ¬åˆå§‹åŒ–çš„å‡½æ•°ï¼‰å‰åå‡ºç°çš„æ¬¡æ•°
 
-    ½ÚµãµÄ³õÊ¼ÊôĞÔÓĞ¡°È¨ÖØ¡±¡¢¡°´ÊĞÔ¡±Óë¡°¸Ã´Ê³öÏÖµÄ´ÎÊı¡±£¬
+    èŠ‚ç‚¹çš„åˆå§‹å±æ€§æœ‰â€œæƒé‡â€ã€â€œè¯æ€§â€ä¸â€œè¯¥è¯å‡ºç°çš„æ¬¡æ•°â€ï¼Œ
 
-    ±ßÔµµÄÊôĞÔÖ»ÓĞ¡°Á½´Ê¹²Í¬³öÏÖµÄ´ÎÊı¡±
+    è¾¹ç¼˜çš„å±æ€§åªæœ‰â€œä¸¤è¯å…±åŒå‡ºç°çš„æ¬¡æ•°â€
 
-    ¸ÃÀàÖ§³Ö×Ô¶¨ÒåÊôĞÔ£¬Ïê¼ûÏÂÎÄ
+    è¯¥ç±»æ”¯æŒè‡ªå®šä¹‰å±æ€§ï¼Œè¯¦è§ä¸‹æ–‡
     
-    ³õÊ¼»¯²ÎÊıÖĞ£¬dict_weightÊÇ´ÊÓïÈ¨ÖØµÄ´Êµä£¬
+    åˆå§‹åŒ–å‚æ•°ä¸­ï¼Œdict_weightæ˜¯è¯è¯­æƒé‡çš„è¯å…¸ï¼Œ
 
-                  ¸ñÊ½Îª{(word1,wp1):weight1,(word2,wp2):weight2......}
+                  æ ¼å¼ä¸º{(word1,wp1):weight1,(word2,wp2):weight2......}
     
-                  list_relationÊÇ°´ÕÕÔ­ÎÄ·Ö´Ê²¢³õ²½´¦ÀíºóµÄ´ÊÁĞ±í£¬
+                  list_relationæ˜¯æŒ‰ç…§åŸæ–‡åˆ†è¯å¹¶åˆæ­¥å¤„ç†åçš„è¯åˆ—è¡¨ï¼Œ
 
-                  ´ÊÓï³öÏÖµÄÏÈºóË³ĞòÒÔÆäÔÚÎÄÖĞ³öÏÖµÄÏÈºóË³ĞòÎª×¼£¬
+                  è¯è¯­å‡ºç°çš„å…ˆåé¡ºåºä»¥å…¶åœ¨æ–‡ä¸­å‡ºç°çš„å…ˆåé¡ºåºä¸ºå‡†ï¼Œ
 
-                  ¸ñÊ½Îª[(word1,wp1),(word2,wp2)......]
+                  æ ¼å¼ä¸º[(word1,wp1),(word2,wp2)......]
                   
-    Ê¹ÓÃµÄÍ¼±íÒÀÀµnetworkx°ü
+    ä½¿ç”¨çš„å›¾è¡¨ä¾èµ–networkxåŒ…
     
     """
 
@@ -165,25 +168,25 @@ class GraphConstructor():
         self.list_relation = list_relation
 
     def add_tag(self, tag_name, dict_tag, flag):
-        """ÊôĞÔÌí¼Óº¯Êı£¬²ÎÊı
+        """å±æ€§æ·»åŠ å‡½æ•°ï¼Œå‚æ•°
 
-                        tag_nameÎªÒªÌí¼ÓµÄÊôĞÔ£»
+                        tag_nameä¸ºè¦æ·»åŠ çš„å±æ€§ï¼›
 
-                        dict_tagÎª¼üÎªÄ¿±êÃû³Æ£¬ÖµÎªÄ¿±êÖµµÄ×Öµä£»
+                        dict_tagä¸ºé”®ä¸ºç›®æ ‡åç§°ï¼Œå€¼ä¸ºç›®æ ‡å€¼çš„å­—å…¸ï¼›
 
-                        flagÎªĞèÒªÌí¼ÓÊôĞÔµÄ±êÊ¶£¬
+                        flagä¸ºéœ€è¦æ·»åŠ å±æ€§çš„æ ‡è¯†ï¼Œ
 
-                        "N"ÎªÏò½ÚµãÌí¼ÓÖµ£¬"E"ÎªÏò±ßÔµÌí¼ÓÖµ
+                        "N"ä¸ºå‘èŠ‚ç‚¹æ·»åŠ å€¼ï¼Œ"E"ä¸ºå‘è¾¹ç¼˜æ·»åŠ å€¼
 
-        dict_tagµÄÊäÈë¸ñÊ½Ó¦Îª:
+        dict_tagçš„è¾“å…¥æ ¼å¼åº”ä¸º:
 
-                        flagÎª"N"Ê±£¬
+                        flagä¸º"N"æ—¶ï¼Œ
         
                         dict_tag
 
                         = {(word1,wp1):tag_value1,......}
 
-                        flagÎª"E"Ê±£¬
+                        flagä¸º"E"æ—¶ï¼Œ
 
                         dict_tag
 
@@ -218,15 +221,15 @@ class GraphConstructor():
 
 
 class CooccurenceConstructor(GraphConstructor):
-    """¹¹½¨¸ù¾İ´ÊÓïÇ°ºó³öÏÖ¹ØÏµÎªÁ´½ÓµÄÍ¼±í"""
+    """æ„å»ºæ ¹æ®è¯è¯­å‰åå‡ºç°å…³ç³»ä¸ºé“¾æ¥çš„å›¾è¡¨"""
 
 
     def __init__(self, dict_weight, list_relation, span):
-        """²ÎÊı
+        """å‚æ•°
 
-        spanÎªÏòºóËÑÑ°µÄ´ÎÊı£¬
+        spanä¸ºå‘åæœå¯»çš„æ¬¡æ•°ï¼Œ
 
-        ÀıÈçspanÎª2Ê±£¬word1ÓëÆäºóÁ½¸ö´Ê¶¼´æÔÚÁ¬½Ó¹ØÏµ£¬ÒÔ´ËÀàÍÆ¡£
+        ä¾‹å¦‚spanä¸º2æ—¶ï¼Œword1ä¸å…¶åä¸¤ä¸ªè¯éƒ½å­˜åœ¨è¿æ¥å…³ç³»ï¼Œä»¥æ­¤ç±»æ¨ã€‚
 
         """
         
@@ -274,27 +277,27 @@ class CooccurenceConstructor(GraphConstructor):
 #===============================================================================
 
 class TextRanker():
-    """½öÖ§³ÖÊ¹ÓÃnetworkx°ü¹¹½¨µÄÎŞ·½ÏòÍ¼"""
+    """ä»…æ”¯æŒä½¿ç”¨networkxåŒ…æ„å»ºçš„æ— æ–¹å‘å›¾"""
     
 
     def __init__(self, d, graph):
-        """²ÎÊı
+        """å‚æ•°
 
-        dÎª×èÈû²ÎÊı£»
+        dä¸ºé˜»å¡å‚æ•°ï¼›
 
-        graphÎªÊäÈëµÄÎŞ·½ÏòÍ¼¡£
+        graphä¸ºè¾“å…¥çš„æ— æ–¹å‘å›¾ã€‚
 
         """
 
         self.block = d
         self.graph = graph
-        self.weight = dict # Î´ÅÅĞòµÄÈ¨ÖØ´Êµä
-        self.sorted_dict = list # ÅÅĞòºóµÄ´ÊÓïÁĞ±í
+        self.weight = dict # æœªæ’åºçš„æƒé‡è¯å…¸
+        self.sorted_dict = list # æ’åºåçš„è¯è¯­åˆ—è¡¨
 
     def rank(self, args = int):
-        """ÔÚGraph½øĞĞWalk, µü´ú¼ÆËãVertex Score
+        """åœ¨Graphè¿›è¡ŒWalk, è¿­ä»£è®¡ç®—Vertex Score
 
-        ²ÎÊıargsÎªµü´úµÄ´ÎÊı
+        å‚æ•°argsä¸ºè¿­ä»£çš„æ¬¡æ•°
 
         """
         for i in range(args):
@@ -316,11 +319,11 @@ class TextRanker():
                             reverse = True)
 
     def get_tokens(self, threshold, withScore = True):
-        """·µ»Øscore³¬¹ıthresholdµÄËùÓĞtoken
+        """è¿”å›scoreè¶…è¿‡thresholdçš„æ‰€æœ‰token
 
-        ÈôwithScoreÎªTrue£¬Ôò·µ»ØÒ»¸öÅÅĞòºóµÄ´Êµä£¬¼üÎª´Ê£¬ÖµÎªÈ¨ÖØ
+        è‹¥withScoreä¸ºTrueï¼Œåˆ™è¿”å›ä¸€ä¸ªæ’åºåçš„è¯å…¸ï¼Œé”®ä¸ºè¯ï¼Œå€¼ä¸ºæƒé‡
         
-        ÈôwithScoreÎªFalse£¬Ôò·µ»ØÒ»¸öÅÅĞòºóµÄÁĞ±í£¬±íÖĞÔªËØÎª´Ê
+        è‹¥withScoreä¸ºFalseï¼Œåˆ™è¿”å›ä¸€ä¸ªæ’åºåçš„åˆ—è¡¨ï¼Œè¡¨ä¸­å…ƒç´ ä¸ºè¯
 
         """
 
@@ -344,11 +347,11 @@ class TextRanker():
             return list_out
 
     def get_topk(self, topk = int, withScore = True):
-        """·µ»Øtopk¸ö×îÖØÒªµÄtoken
+        """è¿”å›topkä¸ªæœ€é‡è¦çš„token
 
-        ÈôwithScoreÎªTrue£¬Ôò·µ»ØÒ»¸öÅÅĞòºóµÄ´Êµä£¬¼üÎª´Ê£¬ÖµÎªÈ¨ÖØ
+        è‹¥withScoreä¸ºTrueï¼Œåˆ™è¿”å›ä¸€ä¸ªæ’åºåçš„è¯å…¸ï¼Œé”®ä¸ºè¯ï¼Œå€¼ä¸ºæƒé‡
         
-        ÈôwithScoreÎªFalse£¬Ôò·µ»ØÒ»¸öÅÅĞòºóµÄÁĞ±í£¬±íÖĞÔªËØÎª´Ê
+        è‹¥withScoreä¸ºFalseï¼Œåˆ™è¿”å›ä¸€ä¸ªæ’åºåçš„åˆ—è¡¨ï¼Œè¡¨ä¸­å…ƒç´ ä¸ºè¯
         
         """
 
@@ -369,7 +372,7 @@ class TextRanker():
 
 
     def get_token_score(self, token):
-        """·µ»ØÌØ¶¨tokenµÄscore"""
+        """è¿”å›ç‰¹å®štokençš„score"""
 
         return self.weight[token]
             
