@@ -14,6 +14,6 @@ Ranker = TR.TextRanker(d = 0.8, graph = Graph.graph)# 调用textrank工具
 Ranker.rank(args = 10)# 迭代求权重，迭代次数自定义，此处为10
 
 out1 = Ranker.get_token_score("我")# 返回某个词的权重
-out2 = Ranker.get_topk(topk = 5)# 返回权重前五的五个词语
+out2 = Ranker.get_topk(topk = 2)# 返回权重前二的两个词语
 out3 = Ranker.get_tokens(threshold = 1)# 返回权重大于1的词语
 print(out1, out2, out3)
