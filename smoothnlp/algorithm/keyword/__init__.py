@@ -1,6 +1,7 @@
 from smoothnlp import logger
 
-__all__ = ["RandomScoreInitializer","AverageScoreInitializer","CustomeInitializer","CooccurenceConstructor","TextRanker"]
+__all__ = ["RandomScoreInitializer","AverageScoreInitializer",
+           "CustomeInitializer","CooccurenceConstructor","TextRanker"]
 
 class BaseKeywordExtractor():
     
